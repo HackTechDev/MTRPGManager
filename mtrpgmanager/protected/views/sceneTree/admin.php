@@ -47,8 +47,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'id',
 		array('name'=>'scenario_id', 'header'=>'Scenario', 'value'=>'$data->scenario->title'),
+		array('name'=>'tabletop_id', 'header'=>'Tabletop', 'value'=>'$data->tabletop->name'),
 		array('name'=>'scene_parent_num', 'header'=>'Scene parent num', 'value'=>'$data->sceneParentNum->title'),
-		array('name'=>'scene_child_num', 'header'=>'Scene child num', 'value'=>'$data->sceneParentChild->title'),
+		array('name'=>'scene_child_num', 'header'=>'Scene child num', 'value'=>'$data->sceneChildNum->title'),
 		array(
 			'class'=>'CButtonColumn',
 		),

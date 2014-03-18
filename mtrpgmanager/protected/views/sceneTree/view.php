@@ -23,6 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		array('label'=>'Scenario', 'value'=>$model->scenario->title),
+		array('label'=>'Table Top', 'value'=>$model->tabletop->name),
 		array('label'=>'Scene Parent Num', 'value'=>$model->sceneParentNum->title),
 		array('label'=>'Scene Child Num', 'value'=>$model->sceneChildNum->title),
 	),

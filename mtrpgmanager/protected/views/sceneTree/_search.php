@@ -22,6 +22,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'tabletop_id'); ?>
+		<?php echo $form->textField($model,'tabletop_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'scene_parent_num'); ?>
 		<?php echo $form->textField($model,'scene_parent_num'); ?>
 	</div>

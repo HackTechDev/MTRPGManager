@@ -6,10 +6,12 @@
  * The followings are the available columns in table 'SceneTree':
  * @property integer $id
  * @property integer $scenario_id
+ * @property integer $tabletop_id
  * @property integer $scene_parent_num
  * @property integer $scene_child_num
  *
  * The followings are the available model relations:
+ * @property Tabletop $tabletop
  * @property Scenario $scenario
  * @property Scene $sceneParentNum
  * @property Scene $sceneChildNum
@@ -32,11 +34,11 @@ class SceneTree extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('scenario_id, scene_parent_num, scene_child_num', 'required'),
-			array('scenario_id, scene_parent_num, scene_child_num', 'numerical', 'integerOnly'=>true),
+			array('tabletop_id, scene_parent_num, scene_child_num', 'required'),
+			array('scenario_id, tabletop_id, scene_parent_num, scene_child_num', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, scenario_id, scene_parent_num, scene_child_num', 'safe', 'on'=>'search'),
+			array('id, scenario_id, tabletop_id, scene_parent_num, scene_child_num', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,6 +50,7 @@ class SceneTree extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'tabletop' => array(self::BELONGS_TO, 'Tabletop', 'tabletop_id'),
 			'scenario' => array(self::BELONGS_TO, 'Scenario', 'scenario_id'),
 			'sceneParentNum' => array(self::BELONGS_TO, 'Scene', 'scene_parent_num'),
 			'sceneChildNum' => array(self::BELONGS_TO, 'Scene', 'scene_child_num'),
@@ -62,6 +65,7 @@ class SceneTree extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'scenario_id' => 'Scenario',
+			'tabletop_id' => 'Tabletop',
 			'scene_parent_num' => 'Scene Parent Num',
 			'scene_child_num' => 'Scene Child Num',
 		);
@@ -87,6 +91,7 @@ class SceneTree extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('scenario_id',$this->scenario_id);
+		$criteria->compare('tabletop_id',$this->tabletop_id);
 		$criteria->compare('scene_parent_num',$this->scene_parent_num);
 		$criteria->compare('scene_child_num',$this->scene_child_num);
 

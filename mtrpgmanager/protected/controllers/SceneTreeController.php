@@ -62,7 +62,26 @@ class SceneTreeController extends Controller
 
 
 	public function displaySceneTree($parent, $level, $array) {
-		return "displaySceneTree";
+		$html = "";
+		/*
+		foreach ($array as $node) {
+			echo $node["scene_parent_num"] . " " .  $node["scene_child_num"] . " " . $parent . "<br>";
+			
+			
+			if ($node["scene_child_num"] >= 1)  {
+				if( $node["scene_parent_num"] == $parent) {	
+					if($node["scene_parent_num"] == $parent ) {
+						for($i = 0;$i < $level; $i++) {
+							$html .= "-";
+						}
+						$html .= " " . $node["scene_name"] . "<br/>";
+						$html .= $this->displaySceneTree($node['scene_child_num'], 0, $array);
+					}
+				}
+			}
+		}
+		*/
+		return $html;
 	}
 
 	/**
@@ -81,7 +100,10 @@ class SceneTreeController extends Controller
 
 		foreach($ScenesTree as $SceneTreeNode ) {
 			// Get title scenario
-			$scenario = Scenario::model()->findByPK($SceneTreeNode->scenario_id);
+			$Scenario = Scenario::model()->findByPK($SceneTreeNode->scenario_id);
+	
+			// Get name tabletop
+			$Tabletop = Tabletop::model()->findByPK($SceneTreeNode->tabletop_id);
 	
 			// Get scene parent title 
 			$criteria = new CDbCriteria();
@@ -96,8 +118,20 @@ class SceneTreeController extends Controller
 			$SceneChild = Scene::model()->find($criteria);
 
 			// Display all
-			 $dataProvider .= $this->displayNode() . " : " . $scenario->title . " = " . $SceneTreeNode->scene_parent_num . " (". $SceneParent->title .")   ==> " . $SceneTreeNode->scene_child_num . "(" . $SceneChild->title . " )  <br/>";
+			 $dataProvider .= "<b>" . $Scenario->title . "</b> on  <b>" . $Tabletop->name . "</b> with " . $SceneTreeNode->scene_parent_num . " (<b>". $SceneParent->title ."</b>)   ==> " . $SceneTreeNode->scene_child_num . " (<b>" . $SceneChild->title . "</b>)  <br/>";
+
+			// Build array
+			$sceneTreeArr[] = array (
+						'scenario' => $Scenario->title,
+						'tabletop' => $Tabletop->name,
+						'scene_parent_num' => $SceneTreeNode->scene_parent_num,
+						'scene_child_num' => $SceneTreeNode->scene_child_num,
+						'scene_name' => $SceneChild->title,
+					);
 		}
+		
+
+		echo $this->displaySceneTree(1, 0, $sceneTreeArr);
 
 		$this->render('display',array(
 			'dataProvider'=>$dataProvider,

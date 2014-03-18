@@ -8,6 +8,9 @@
  * @property string $name
  * @property string $location
  * @property string $description
+ *
+ * The followings are the available model relations:
+ * @property SceneTree[] $sceneTrees
  */
 class Tabletop extends CActiveRecord
 {
@@ -43,6 +46,7 @@ class Tabletop extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'sceneTrees' => array(self::HAS_MANY, 'SceneTree', 'tabletop_id'),
 		);
 	}
 
